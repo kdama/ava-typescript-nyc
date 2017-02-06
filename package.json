@@ -1,0 +1,28 @@
+{
+  "name": "ava-typescript-nyc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "del-cli .nyc_output build coverage",
+    "build": "tsc",
+    "test": "npm-run-all -l clean build -p -l test:*",
+    "test:run": "mkdirp build/test/reports && ava --tap | tap-xunit > build/test/reports/xunit.xml",
+    "test:coverage": "run-s test:coverage:run test:coverage:report",
+    "test:coverage:run": "nyc ava",
+    "test:coverage:report": "run-p test:coverage:report:*",
+    "test:coverage:report:html": "nyc report --reporter html --report-dir build/test/coverage/html",
+    "test:coverage:report:cobertua": "nyc report --reporter cobertura --report-dir build/test/coverage/cobertura"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ava": "^0.18.1",
+    "del-cli": "^0.2.1",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.0.1",
+    "nyc": "^10.1.2",
+    "tap-xunit": "^1.7.0",
+    "typescript": "^2.1.5"
+  }
+}
